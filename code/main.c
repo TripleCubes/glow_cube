@@ -3,6 +3,7 @@
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include "globals.h"
+#include "consts.h"
 #include "result.h"
 
 static Result graphic_init() {
@@ -11,7 +12,13 @@ static Result graphic_init() {
 	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 3);
 	glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);
 
-	glfw_window = glfwCreateWindow(500, 500, "glow cube", NULL, NULL);
+	glfw_window = glfwCreateWindow(
+		INIT_WINDOW_W,
+		INIT_WINDOW_H,
+		"glow cube",
+		NULL,
+		NULL
+	);
 	if (glfw_window == NULL) {
 		glfwTerminate();
 		return ERR("graphic_init(): glfw init err");
@@ -24,7 +31,7 @@ static Result graphic_init() {
 		return ERR("graphic_init(): glad init err");
 	}
 
-	glViewport(0, 0, 500, 500);
+	glViewport(0, 0, INIT_WINDOW_W, INIT_WINDOW_H);
 
 	return OK;
 }
