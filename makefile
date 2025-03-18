@@ -29,7 +29,7 @@ run: all
 	$(BIN_DIR)$(BIN_NAME)
 
 $(BIN_DIR)$(BIN_NAME): $(LIBS) $(OBJ_FILES)
-	$(COMPILER) -o $@ $(LIBS) $(OBJ_FILES)
+	$(COMPILER) -o $@ $(OBJ_FILES) $(LIBS) -lgdi32
 
 build_dirs:
 	-mkdir "build/bin/"
