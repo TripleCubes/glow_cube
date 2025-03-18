@@ -9,7 +9,7 @@ GLFW_INCLUDES  := -Ilib/glfw-3.3.8/include/
 GLAD_INCLUDES  := -Ilib/glad/include/
 INCLUDES       := $(GLFW_INCLUDES) $(GLAD_INCLUDES)
 LIBS           := $(OBJ_DIR)glfw.a $(OBJ_DIR)glad.a
-COMPILER_FLAGS := -Wall -Wextra -Wpedantic -Werror -g3 -MMD -MP
+COMPILER_FLAGS := -Wall -Wextra -Wpedantic -Werror -std=c17 -g3 -MMD -MP
 
 CODE_FILES := $(wildcard $(CODE_DIR)*.c)
 OBJ_FILES  := $(CODE_FILES:$(CODE_DIR)%.c=$(OBJ_DIR)%.o)
