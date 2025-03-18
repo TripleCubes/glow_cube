@@ -11,7 +11,7 @@
 #include "file.h"
 
 #include "shader.h"
-#include "vao.h"
+#include "mesh.h"
 
 static Result graphic_init() {
 	glfwInit();
@@ -41,7 +41,7 @@ static Result graphic_init() {
 	glViewport(0, 0, INIT_WINDOW_W, INIT_WINDOW_H);
 
 	glEnable(GL_CULL_FACE);
-	glCullFace(GL_FRONT);
+	glCullFace(GL_BACK);
 
 	return OK;
 }
@@ -58,13 +58,13 @@ int main(void) {
 
 	float verts[9] = {
 		 0  ,  0.5,  0  ,
-		 0.5, -0.5,  0  ,
 		-0.5, -0.5,  0  ,
+		 0.5, -0.5,  0  ,
 	};
 	unsigned int idxs[3] = {
 		0, 1, 2,
 	};
-	unsigned int vao = vao_new(verts, 9, idxs, 3);
+	Mesh mesh = mesh_new(verts, 9, idxs, 3);
 
 
 	while (!glfwWindowShouldClose(glfw_window)) {
@@ -74,7 +74,7 @@ int main(void) {
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		glUseProgram(shader_main);
-		glBindVertexArray(vao);
+		glBindVertexArray(mesh.vao);
 		glDrawElements(GL_TRIANGLES, 3, GL_UNSIGNED_INT, 0);
 
 		glfwSwapBuffers(glfw_window);
