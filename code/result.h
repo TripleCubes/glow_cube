@@ -6,8 +6,12 @@
 #define ERR(err_str) err_new(err_str)
 #define OK ok_new()
 
-#define HANDLE(x) if (x.err_ed) { return ERR(x.err_str); }
-#define HANDLE_MAIN(x) if (x.err_ed) { printf("%s\n", x.err_str); return 0; }
+#define HANDLE(x) {\
+	Result r = x; if (r.err_ed) { return ERR(r.err_str); }\
+}
+#define HANDLE_MAIN(x) {\
+	Result r = x; if (r.err_ed) { printf("%s\n", r.err_str); return 0; }\
+}
 
 struct _Result {
 	bool err_ed;

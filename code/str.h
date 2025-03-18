@@ -12,8 +12,9 @@ Result str_from(Str *str, const char *str2);
 Result str_push(Str *str, char c);
 Result str_insert(Str *str, const char *str2);
 Result str_set(Str *str, const char *str2);
-void str_print(Str *str);
-void str_println(Str *str);
+void str_print(const Str *str);
+void str_println(const Str *str);
+Result c_str(char **out, const Str *str);
 void str_clear(Str *str);
 void str_release(Str *str);
 

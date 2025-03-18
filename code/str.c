@@ -32,13 +32,25 @@ Result str_set(Str *str, const char *str2) {
 	return OK;
 }
 
-void str_print(Str *str) {
+void str_print(const Str *str) {
 	printf("%.*s", (int)str->sz, str->ptr);
 }
 
-void str_println(Str *str) {
+void str_println(const Str *str) {
 	str_print(str);
 	printf("\n");
+}
+
+Result c_str(char **out, const Str *str) {
+	*out = malloc((str->sz + 1) * sizeof(char));
+	if (*out == NULL) {
+		return ERR("c_str(): malloc failed");
+	}
+
+	memcpy(*out, str->ptr, str->sz * sizeof(char));
+	(*out)[str->sz] = '\0';
+
+	return OK;
 }
 
 void str_clear(Str *str) {
