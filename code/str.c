@@ -18,6 +18,10 @@ Result str_from(Str *str, const char *str2) {
 	return OK;
 }
 
+Result str_push(Str *str, char c) {
+	return dynarr_char_push(str, c);
+}
+
 Result str_insert(Str *str, const char *str2) {
 	return dynarr_char_insert(str, str2, strlen(str2));
 }

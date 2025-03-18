@@ -1,16 +1,15 @@
 #include <stdio.h>
 #include "result.h"
 #include "str.h"
+#include "file.h"
 
 int main(void) {
 	Str str;
-	HANDLE_MAIN(str_from(&str, "this is a test"));
-	HANDLE_MAIN(str_insert(&str, " 10"));
-	str_println(&str);
+	HANDLE_MAIN(str_cap_new(&str, 4096));
 
-	HANDLE_MAIN(str_set(&str, "hey now brown cow"));
-	str_println(&str);
+	HANDLE_MAIN(file_read(&str, "shader/main_v.glsl"));
 
+	str_print(&str);
 	str_release(&str);
 
 	printf("reached end of main()\n");

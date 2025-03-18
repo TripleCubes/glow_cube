@@ -9,6 +9,7 @@ typedef DynarrChar Str;
 Result str_new(Str *str);
 Result str_cap_new(Str *str, size_t cap);
 Result str_from(Str *str, const char *str2);
+Result str_push(Str *str, char c);
 Result str_insert(Str *str, const char *str2);
 Result str_set(Str *str, const char *str2);
 void str_print(Str *str);
