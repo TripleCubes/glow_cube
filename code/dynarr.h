@@ -3,7 +3,7 @@
 
 #include <stdlib.h>
 
-typedef struct _Maybe Maybe;
+typedef struct _Result Result;
 
 #define DYNARR_DECLARE(type, func_name, struct_name)\
 struct _Dynarr##struct_name {\
@@ -13,11 +13,11 @@ struct _Dynarr##struct_name {\
 };\
 typedef struct _Dynarr##struct_name Dynarr##struct_name;\
 \
-Maybe dynarr_##func_name##_cap_new(Dynarr##struct_name *dynarr, size_t cap);\
-Maybe dynarr_##func_name##_new(Dynarr##struct_name *dynarr);\
-Maybe dynarr_##func_name##_push(Dynarr##struct_name *dynarr, type v);\
+Result dynarr_##func_name##_cap_new(Dynarr##struct_name *dynarr, size_t cap);\
+Result dynarr_##func_name##_new(Dynarr##struct_name *dynarr);\
+Result dynarr_##func_name##_push(Dynarr##struct_name *dynarr, type v);\
 type  dynarr_##func_name##_pop(Dynarr##struct_name *dynarr);\
-Maybe dynarr_##func_name##_insert(Dynarr##struct_name *dynarr,\
+Result dynarr_##func_name##_insert(Dynarr##struct_name *dynarr,\
 	const type *arr2, size_t arr2sz);\
 void  dynarr_##func_name##_clear(Dynarr##struct_name *dynarr);\
 void  dynarr_##func_name##_release(Dynarr##struct_name *dynarr);\

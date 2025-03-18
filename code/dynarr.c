@@ -1,10 +1,10 @@
 #include "dynarr.h"
 
 #include <string.h>
-#include "maybe.h"
+#include "result.h"
 
 #define DYNARR_DEFINE(type, func_name, struct_name)\
-Maybe dynarr_##func_name##_cap_new(Dynarr##struct_name *dynarr, size_t cap) {\
+Result dynarr_##func_name##_cap_new(Dynarr##struct_name *dynarr, size_t cap) {\
 	dynarr->sz = 0;\
 	dynarr->cap = cap;\
 	dynarr->ptr = malloc(cap * sizeof(type));\
@@ -14,11 +14,11 @@ Maybe dynarr_##func_name##_cap_new(Dynarr##struct_name *dynarr, size_t cap) {\
 	return OK;\
 }\
 \
-Maybe dynarr_##func_name##_new(Dynarr##struct_name *dynarr) {\
+Result dynarr_##func_name##_new(Dynarr##struct_name *dynarr) {\
 	return dynarr_##func_name##_cap_new(dynarr, 2);\
 }\
 \
-Maybe dynarr_##func_name##_push(Dynarr##struct_name *dynarr, type v) {\
+Result dynarr_##func_name##_push(Dynarr##struct_name *dynarr, type v) {\
 	if (dynarr->sz == dynarr->cap) {\
 		dynarr->ptr = realloc(dynarr->ptr, dynarr->cap * 2 *sizeof(type));\
 		if (dynarr->ptr == NULL) {\
@@ -36,7 +36,7 @@ type dynarr_##func_name##_pop(Dynarr##struct_name *dynarr) {\
 	return dynarr->ptr[dynarr->sz];\
 }\
 \
-Maybe dynarr_##func_name##_insert(Dynarr##struct_name *dynarr,\
+Result dynarr_##func_name##_insert(Dynarr##struct_name *dynarr,\
 const type *arr2, size_t arr2sz) {\
 	size_t nx_sz = dynarr->sz + arr2sz;\
 	if (nx_sz > dynarr->cap) {\

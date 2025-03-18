@@ -23,12 +23,12 @@ GLFW_C         := $(GLFW_ALL_PLATS) $(GLFW_WINDOWS)
 GLFW_OBJ_FILES := $(GLFW_C:%.c=$(OBJ_DIR)%.o)
 
 
-all: $(BIN_DIR)$(BIN_NAME)
+all: build_dirs $(BIN_DIR)$(BIN_NAME)
 
-run: $(BIN_DIR)$(BIN_NAME)
+run: all
 	$(BIN_DIR)$(BIN_NAME)
 
-$(BIN_DIR)$(BIN_NAME): build_dirs $(LIBS) $(OBJ_FILES)
+$(BIN_DIR)$(BIN_NAME): $(LIBS) $(OBJ_FILES)
 	$(COMPILER) -o $@ $(LIBS) $(OBJ_FILES)
 
 build_dirs:

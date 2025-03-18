@@ -1,5 +1,5 @@
-#ifndef MAYBE_HEADER
-#define MAYBE_HEADER
+#ifndef RESULT_HEADER
+#define RESULT_HEADER
 
 #include <stdbool.h>
 
@@ -9,13 +9,13 @@
 #define HANDLE(x) if (x.err_ed) { return ERR(x.err_str); }
 #define HANDLE_MAIN(x) if (x.err_ed) { printf("%s\n", x.err_str); return 0; }
 
-struct _Maybe {
+struct _Result {
 	bool err_ed;
 	const char *err_str;
 };
-typedef struct _Maybe Maybe;
+typedef struct _Result Result;
 
-Maybe err_new(const char *err_str);
-Maybe ok_new(void);
+Result err_new(const char *err_str);
+Result ok_new(void);
 
 #endif

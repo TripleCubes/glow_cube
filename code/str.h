@@ -3,14 +3,14 @@
 
 #include "dynarr.h"
 
-typedef struct _Maybe Maybe;
+typedef struct _Result Result;
 typedef DynarrChar Str;
 
-Maybe str_new(Str *str);
-Maybe str_cap_new(Str *str, size_t cap);
-Maybe str_from(Str *str, const char *str2);
-Maybe str_insert(Str *str, const char *str2);
-Maybe str_set(Str *str, const char *str2);
+Result str_new(Str *str);
+Result str_cap_new(Str *str, size_t cap);
+Result str_from(Str *str, const char *str2);
+Result str_insert(Str *str, const char *str2);
+Result str_set(Str *str, const char *str2);
 void str_print(Str *str);
 void str_println(Str *str);
 void str_clear(Str *str);
