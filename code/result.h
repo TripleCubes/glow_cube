@@ -2,6 +2,7 @@
 #define RESULT_HEADER
 
 #include <stdbool.h>
+#include <stdio.h>
 
 #define ERR(err_str) err_new(err_str)
 #define OK ok_new()

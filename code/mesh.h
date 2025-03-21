@@ -9,5 +9,6 @@ struct _Mesh {
 typedef struct _Mesh Mesh;
 
 Mesh mesh_new(float *verts, int verts_sz, unsigned int *idxs, int idxs_sz);
+void mesh_release(Mesh *mesh);
 
 #endif

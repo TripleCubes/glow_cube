@@ -46,3 +46,9 @@ Mesh mesh_new(float *verts, int verts_sz, unsigned int *idxs, int idxs_sz) {
 
 	return mesh;
 }
+
+void mesh_release(Mesh *mesh) {
+	glDeleteVertexArrays(1, &(mesh->vao));
+	glDeleteBuffers(1, &(mesh->vbo));
+	glDeleteBuffers(1, &(mesh->ebo));
+}

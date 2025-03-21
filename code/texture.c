@@ -44,3 +44,7 @@ Result texture_new(Texture *texture, const char* path) {
 
 	return OK;
 }
+
+void texture_release(Texture *texture) {
+	glDeleteTextures(1, &(texture->id));
+}

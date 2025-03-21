@@ -11,5 +11,6 @@ struct _Texture {
 typedef struct _Texture Texture;
 
 Result texture_new(Texture *texture, const char* path);
+void texture_release(Texture *texture);
 
 #endif
