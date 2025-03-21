@@ -7,7 +7,8 @@ OBJ_DIR  := build/obj/
 
 GLFW_INCLUDES  := -Ilib/glfw-3.3.8/include/
 GLAD_INCLUDES  := -Ilib/glad/include/
-INCLUDES       := $(GLFW_INCLUDES) $(GLAD_INCLUDES)
+STB_INCLUDES   := -Ilib/stb/include/
+INCLUDES       := $(GLFW_INCLUDES) $(GLAD_INCLUDES) $(STB_INCLUDES)
 LIBS           := $(OBJ_DIR)glfw.a $(OBJ_DIR)glad.a
 COMPILER_FLAGS := -Wall -Wextra -Wpedantic -Werror -std=c17 -g3 -MMD -MP
 
