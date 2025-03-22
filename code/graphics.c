@@ -173,7 +173,7 @@ Result graphics_init(void) {
 void draw(void) {
 	glBindFramebuffer(GL_FRAMEBUFFER, scene_fb.fbo);
 	glClearColor(0, 0, 0, 1);
-    glEnable(GL_DEPTH_TEST);
+	glEnable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
 	Mat4 rot_mat = mat4_rot(0, -glfwGetTime(), 0);
