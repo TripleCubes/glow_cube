@@ -2,9 +2,13 @@
 
 #include <glad/glad.h>
 #include <stdio.h>
+
 #include "result.h"
 #include "file.h"
 #include "str.h"
+
+#include "mat4.h"
+#include "vec3.h"
 
 static Result compile_shader(unsigned int *shader, const char *path,
 bool is_fragment) {
@@ -67,4 +71,54 @@ const char *f_path) {
 	*shader_id = glCreateProgram();
 	HANDLE(link_shader_program(*shader_id, v_path, f_path));
 	return OK;
+}
+
+void shader_u_mat4(unsigned int shader_id, const char *uniform, const Mat4 *m) {
+	glUniformMatrix4fv(
+		glGetUniformLocation(shader_id, uniform),
+		1,
+		GL_TRUE,
+		m->data
+	);
+}
+
+void shader_u_vec3(unsigned int shader_id, const char *uniform, const Vec3 v) {
+	glUniform3f(
+		glGetUniformLocation(shader_id, uniform),
+		v.x,
+		v.y,
+		v.z
+	);
+}
+
+void shader_u_2f(unsigned int shader_id, const char *uniform, float a, float b){
+	glUniform2f(
+		glGetUniformLocation(shader_id, uniform),
+		a,
+		b
+	);
+}
+
+void shader_u_bool(unsigned int shader_id, const char *uniform, bool b) {
+	glUniform1i(
+		glGetUniformLocation(shader_id, uniform),
+		b
+	);
+}
+
+void shader_u_float(unsigned int shader_id, const char *uniform, float f) {
+	glUniform1f(
+		glGetUniformLocation(shader_id, uniform),
+		f
+	);
+}
+
+void shader_u_texture(unsigned int shader_id, const char *uniform,
+unsigned int texture_id, int uniform_index) {
+	glUniform1i(
+		glGetUniformLocation(shader_id, uniform),
+		uniform_index
+	);
+	glActiveTexture(GL_TEXTURE0 + uniform_index);
+	glBindTexture(GL_TEXTURE_2D, texture_id);
 }

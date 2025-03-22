@@ -28,21 +28,9 @@ static void blur(unsigned int texture_id) {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(shader_blur);
-	glUniform2f(
-		glGetUniformLocation(shader_blur, "u_window_sz"),
-		INIT_WINDOW_W,
-		INIT_WINDOW_H
-	);
-	glUniform1i(
-		glGetUniformLocation(shader_blur, "u_vertical"),
-		false
-	);
-	glUniform1i(
-		glGetUniformLocation(shader_blur, "u_texture"),
-		0
-	);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture_id);
+	shader_u_2f(shader_blur, "u_window_sz", INIT_WINDOW_W, INIT_WINDOW_H);
+	shader_u_bool(shader_blur, "u_vertical", false);
+	shader_u_texture(shader_blur, "u_texture", texture_id, 0);
 
 	glDrawElements(GL_TRIANGLES, VIEW_IDXS_SZ, GL_UNSIGNED_INT, 0);
 
@@ -52,16 +40,8 @@ static void blur(unsigned int texture_id) {
 	glDisable(GL_DEPTH_TEST);
 	glClear(GL_COLOR_BUFFER_BIT);
 
-	glUniform1i(
-		glGetUniformLocation(shader_blur, "u_vertical"),
-		true
-	);
-	glUniform1i(
-		glGetUniformLocation(shader_blur, "u_texture"),
-		0
-	);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, blur_fb.texture_id);
+	shader_u_bool(shader_blur, "u_vertical", true);
+	shader_u_texture(shader_blur, "u_texture", blur_fb.texture_id, 0);
 
 	glDrawElements(GL_TRIANGLES, VIEW_IDXS_SZ, GL_UNSIGNED_INT, 0);
 }
@@ -200,36 +180,11 @@ void draw(void) {
 	Mat4 translate_mat = mat4_translate(0, 0, -9);
 	Mat4 model_mat = mat4_mul(translate_mat, rot_mat);
 	glUseProgram(shader_main);
-	glUniformMatrix4fv(
-		glGetUniformLocation(shader_main, "u_model_mat"),
-		1,
-		GL_TRUE,
-		model_mat.data
-	);
-	glUniformMatrix4fv(
-		glGetUniformLocation(shader_main, "u_view_mat"),
-		1,
-		GL_TRUE,
-		view_mat.data
-	);
-	glUniformMatrix4fv(
-		glGetUniformLocation(shader_main, "u_proj_mat"),
-		1,
-		GL_TRUE,
-		proj_mat.data
-	);
-	glUniform3f(
-		glGetUniformLocation(shader_main, "u_light_dir"),
-		light_dir.x,
-		light_dir.y,
-		light_dir.z
-	);
-	glUniform1i(
-		glGetUniformLocation(shader_main, "u_texture"),
-		0
-	);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, texture.id);
+	shader_u_mat4(shader_main, "u_model_mat", &model_mat);
+	shader_u_mat4(shader_main, "u_view_mat", &view_mat);
+	shader_u_mat4(shader_main, "u_proj_mat", &proj_mat);
+	shader_u_vec3(shader_main, "u_light_dir", light_dir);
+	shader_u_texture(shader_main, "u_texture", texture.id, 0);
 
 	glBindVertexArray(cube_mesh.vao);
 	glDrawElements(GL_TRIANGLES, CUBE_IDXS_SZ, GL_UNSIGNED_INT, 0);
@@ -246,26 +201,10 @@ void draw(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(shader_add);
-	glUniform1f(
-		glGetUniformLocation(shader_add, "u_opacity_1"),
-		1
-	);
-	glUniform1f(
-		glGetUniformLocation(shader_add, "u_opacity_2"),
-		0.8
-	);
-	glUniform1i(
-		glGetUniformLocation(shader_add, "u_texture_1"),
-		0
-	);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, scene_fb.texture_id);
-	glUniform1i(
-		glGetUniformLocation(shader_add, "u_texture_2"),
-		1
-	);
-	glActiveTexture(GL_TEXTURE1);
-	glBindTexture(GL_TEXTURE_2D, blur_2_fb.texture_id);
+	shader_u_float(shader_add, "u_opacity_1", 1);
+	shader_u_float(shader_add, "u_opacity_2", 0.8);
+	shader_u_texture(shader_add, "u_texture_1", scene_fb.texture_id, 0);
+	shader_u_texture(shader_add, "u_texture_2", blur_2_fb.texture_id, 1);
 
 	glBindVertexArray(view_mesh.vao);
 	glDrawElements(GL_TRIANGLES, VIEW_IDXS_SZ, GL_UNSIGNED_INT, 0);
@@ -277,12 +216,7 @@ void draw(void) {
 	glClear(GL_COLOR_BUFFER_BIT);
 
 	glUseProgram(shader_view);
-	glUniform1i(
-		glGetUniformLocation(shader_view, "u_texture"),
-		0
-	);
-	glActiveTexture(GL_TEXTURE0);
-	glBindTexture(GL_TEXTURE_2D, view_fb.texture_id);
+	shader_u_texture(shader_view, "u_texture", view_fb.texture_id, 0);
 
 	glBindVertexArray(view_mesh.vao);
 	glDrawElements(GL_TRIANGLES, VIEW_IDXS_SZ, GL_UNSIGNED_INT, 0);
